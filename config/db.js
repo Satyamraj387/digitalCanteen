@@ -5,14 +5,33 @@ client.connect(function(err) {
   if(err) {
     return console.error('could not connect to postgres', err);
   }
-  client.query('SELECT NOW() AS "theTime"', function(err, result) {
+
+  client.query('SELECT * FROM items', function(err, result) {
     if(err) {
       return console.error('error running query', err);
     }
-    console.log(result.rows[0].theTime);
-    // >> output: 2018-08-23T14:02:57.117Z
+    console.log(result.rows[0]);
+   
   });
 
 });
 
-module.exports = client;
+
+const insertItem = async (itemId, itemName, desc, price, avail) => {
+    try {
+          // gets connection
+        await client.query(
+            `INSERT INTO "items" ("id", "name", "description", "price", "availability")  
+             VALUES ($1, $2,$3, $4, $5)`, [itemId, itemName, desc, price, avail]); // sends queries
+        return true;
+    } catch (error) {
+        console.error(error.stack);
+        return false;
+    } finally {
+        await client.end();               // closes connection
+    }
+};
+
+
+
+module.exports = client, insertItem;
