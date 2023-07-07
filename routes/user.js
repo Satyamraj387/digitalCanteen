@@ -1,11 +1,13 @@
-const {insertItem, insertUser}= require("../controllers/dbController");
+const {fetcher,insertUser}= require("../controllers/userController");
 
 
+const express= require('express');
+
+const router= express.Router();
 
 
+router.get('/', fetcher);
+router.post('/signup',insertUser);
 
-// insertUser('g@f.com', 'satyaam','1221', '{ "customer": "Alex Cross"}', ).then(result => {
-//     if (result) {
-//         console.log('User inserted from check');
-//     }
-// });
+module.exports = router;
+

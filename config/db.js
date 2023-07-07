@@ -1,20 +1,6 @@
 var pg = require('pg');
 var client = new pg.Client("postgres://khqaykpj:bAxWoVHb0fyS3D07pM1tXYRI_n4ChC3S@john.db.elephantsql.com/khqaykpj");
 
-//  client.connect(function(err) {
-//   if(err) {
-//     return console.error('could not connect to postgres', err);
-//   }
-
-//   client.query('SELECT * FROM users1', function(err, result) {
-//     if(err) {
-//       return console.error('error running query', err);
-//     }
-//     console.log(result.rows[0]);
-   
-//   });
-
-// });
 
 
 
