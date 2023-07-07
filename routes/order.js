@@ -1,4 +1,4 @@
-const {fetcher,insertItem}= require("../controllers/itemController");
+const {fetcher,insertOrder}= require("../controllers/orderController");
 
 
 const express= require('express');
@@ -6,6 +6,6 @@ const express= require('express');
 const router= express.Router();
 
 router.get('/', fetcher);
-router.post('/insert',insertItem);
+router.post('/insert',insertOrder);
 
 module.exports = router;

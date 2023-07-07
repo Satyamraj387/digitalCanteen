@@ -22,7 +22,6 @@ module.exports.insertItem =async (req,res) => {
        console.log(req.body);
        
 
-       //   await client.connect()// gets connection
        await db.query(
            `INSERT INTO "items" ("id", "name", "description", "price", "availability")  
             VALUES ($1, $2,$3, $4, $5)`, [req.body.id, req.body.name, req.body.desc, req.body.price, req.body.avail]); // sends queries
