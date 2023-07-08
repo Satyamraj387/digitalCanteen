@@ -3,12 +3,17 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const PORT = process.env.PORT || 3001;
 
-const checker = require("./routes/user");
-const itemChecker= require("./routes/item");
 
 const app = express();
 
 const db= require("./config/db");
+
+
+// const session= require('express-session');
+// const passport= require('passport');
+// const passportLocal= require('./config/passport-local-strategy');
+// const passportJWT = require ('./config/passport-jwt-strategy');
+// const passportgoogle = require('./config/passport-google-oauth2-strategy');
 
 
 
