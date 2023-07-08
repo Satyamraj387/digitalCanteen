@@ -8,7 +8,7 @@ verifyToken = (req, res, next) => {
 
   if (!token) {
     return res.status(403).send({
-      message: "No token provided!"
+      message: "You need to login first"
     });
   }
 
@@ -20,7 +20,8 @@ verifyToken = (req, res, next) => {
                   message: "Unauthorized!",
                 });
               }
-              req.userId = decoded.id;
+              // console.log(decoded)  gives the id iat and exp
+              req.body.email = decoded.email;
               next();
               
             });

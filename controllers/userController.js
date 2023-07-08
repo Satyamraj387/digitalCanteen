@@ -34,7 +34,7 @@ module.exports.insertUser = async (req, res) => {
             `INSERT INTO "users1" ("email","name","password","orders")  
              VALUES ($1, $2,$3, $4)`, [req.body.email, req.body.name, password, req.body.orders]); // sends queries
              return res.json(200, {
-                 message: 'Success',
+                 message: 'Successfully signed up. Please login',
              });
     } catch (error) {
      return res.json(400, {
@@ -61,7 +61,7 @@ module.exports.validateUser = async(req,res)=>{
             })
         }
 
-        const token = jwt.sign({ id: user.id },
+        const token = jwt.sign({ email: user.email },
             config.secret,
             {
               algorithm: 'HS256',
