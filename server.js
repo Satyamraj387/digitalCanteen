@@ -2,8 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const PORT = process.env.PORT || 3001;
-require('./config/nodeMailer');
-
+// require('./config/nodeMailer');
 
 const app = express();
 

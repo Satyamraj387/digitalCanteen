@@ -11,10 +11,10 @@ let mailTransporter = nodemailer.createTransport({
 });
  
 let mailDetails = {
-    from: 'satyams@argusoft.com',
-    to: 'satyamraj387@gmail.com',
-    subject: 'Test mail',
-    text: 'Node.js testing mail for GeeksforGeeks'
+    from: 'satgun041@gmail.com',
+    to: 'guneetk404@gmail.com',
+    subject: 'Order details',
+    text: 'Order has been placed'
 };
  
 mailTransporter.sendMail(mailDetails, function(err, data) {
