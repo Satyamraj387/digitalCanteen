@@ -4,7 +4,25 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 
+module.exports.userFetcher = async (req,res)=>{
+    try {
+        console.log("params working", req.params.email)
+        const results = await db.query(`select * from users1 where email=$1`,[req.params.email]);
+        var user=results.rows[0];
+        console.log(user)
 
+ 
+    return res.json(200, {
+        message: 'Success',
+        body: user
+    });
+    } catch (error) {
+        return res.json(400, {
+            message:error
+        })
+    }
+    
+}
 
 
 module.exports.fetcher = async (req,res)=>{
@@ -15,6 +33,21 @@ module.exports.fetcher = async (req,res)=>{
     return res.json(200, {
         message: 'Success',
         results: results
+    });
+    } catch (error) {
+        return res.json(400, {
+            message:error
+        })
+    }
+    
+}
+module.exports.verifier = async (req,res)=>{
+    try {
+        // console.log("trying in userController")
+        console.log("in verifier",req.body)
+    return res.json(200, {
+        message: 'Success',
+        body: req.body
     });
     } catch (error) {
         return res.json(400, {
@@ -74,7 +107,8 @@ module.exports.validateUser = async(req,res)=>{
                 email: user.email,
                 name: user.name,
                 orders: user.orders,
-                accessToken: token
+                accessToken: token,
+                message: "You have been successfully logged in"
 
             })
 

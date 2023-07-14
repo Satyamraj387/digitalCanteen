@@ -1,4 +1,4 @@
-const {fetcher,insertUser,validateUser}= require("../controllers/userController");
+const {fetcher,insertUser,validateUser,verifier,userFetcher}= require("../controllers/userController");
 
 const { authJwt } = require("../middleware");
 
@@ -6,11 +6,11 @@ const express= require('express');
 
 const router= express.Router();
 
-
-router.get('/', fetcher);
+router.post('/verify',[authJwt.verifyToken],verifier);
+router.post('/:email',[authJwt.verifyToken], userFetcher);
 router.post('/signup',insertUser);
 router.post('/login', validateUser);
-router.post('/verify',[authJwt.verifyToken],fetcher);
+
 
 module.exports = router;
 
