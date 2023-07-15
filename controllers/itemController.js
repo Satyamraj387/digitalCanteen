@@ -7,7 +7,7 @@ module.exports.fetcher = async (req,res)=>{
  
     return res.json(200, {
         message: 'Success',
-        data: results,
+        data: results.rows,
         success:true
 
     });
