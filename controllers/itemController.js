@@ -7,11 +7,15 @@ module.exports.fetcher = async (req,res)=>{
  
     return res.json(200, {
         message: 'Success',
-        results: results
+        data: results,
+        success:true
+
     });
     } catch (error) {
         return res.json(400, {
-            message:error
+            message:error,
+            success:false
+
         })
     }
     
@@ -26,12 +30,16 @@ module.exports.insertItem =async (req,res) => {
            `INSERT INTO "items" ("id", "name", "description", "price", "availability")  
             VALUES ($1, $2,$3, $4, $5)`, [req.body.id, req.body.name, req.body.desc, req.body.price, req.body.avail]); // sends queries
             return res.json(200, {
-                message: 'Success',
+                message: 'Successfully inserted item in menu',
+                success:true
+
             });
    } catch (error) {
     return res.json(400, {
         message: "Sorry try again",
-        error: error
+        error: error,
+        success:false
+
     });
    }
 }

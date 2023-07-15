@@ -7,9 +7,10 @@ const express= require('express');
 const router= express.Router();
 
 router.post('/verify',[authJwt.verifyToken],verifier);
-router.post('/:email',[authJwt.verifyToken], userFetcher);
 router.post('/signup',insertUser);
 router.post('/login', validateUser);
+router.post('/:email',[authJwt.verifyToken], userFetcher);
+
 
 
 module.exports = router;

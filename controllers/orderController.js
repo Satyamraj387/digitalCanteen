@@ -25,12 +25,16 @@ module.exports.fetcher = async (req,res)=>{
         console.log(results);
     return res.json(200, {
         message: 'your all orders are here',
-        results: results.rows
+        data: results.rows,
+        success:true
+
     });
     } catch (error) {
         return res.json(400, {
             message:"error in fetching",
-            error: error
+            error: error,
+            success:false
+
         })
     }
     
@@ -51,10 +55,14 @@ module.exports.insertOrder = async (req, res) => {
              VALUES ($1, $2,$3, $4, $5)`, [ id,req.body.items, req.body.prices, req.body.totalprice, req.body.email]); // sends queries
              return res.json(200, {
                  message: 'Success',
+                 success:true
+
              });
     } catch (error) {
      return res.json(400, {
          message: "Sorry try again",
-         error: error
+         error: error,
+         success:false
+
      });
     }}
