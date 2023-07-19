@@ -6,8 +6,8 @@ var bcrypt = require("bcryptjs");
 
 module.exports.userFetcher = async (req,res)=>{
     try {
-        console.log("params working", req.params.email)
-        const results = await db.query(`select * from users1 where email=$1`,[req.params.email]);
+        console.log("params working egbekjbvkjrgregeg")
+        const results = await db.query(`select * from users1 where email=$1`,[req.body.email]);
         var user=results.rows[0];
         // console.log(user)
 

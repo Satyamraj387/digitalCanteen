@@ -48,7 +48,7 @@ module.exports.insertOrder = async (req, res) => {
 
     try {
         console.log(req.body);
-        let id = new Date().getTime();
+        let id = Date.now();
         console.log(id)
         await db.query(
             `INSERT INTO "orders" ("id","items","prices","totalprice", "email")  

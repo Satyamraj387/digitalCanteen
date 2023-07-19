@@ -9,7 +9,7 @@ const router= express.Router();
 router.post('/verify',[authJwt.verifyToken],verifier);
 router.post('/signup',insertUser);
 router.post('/login', validateUser);
-router.post('/:email',[authJwt.verifyToken], userFetcher);
+router.post('/',[authJwt.verifyToken], userFetcher);
 
 
 
