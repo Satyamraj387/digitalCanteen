@@ -3,7 +3,7 @@ const config = require("../config/auth");
 
 
 verifyToken = (req, res, next) => {
-  // console.log("decoded")
+  // console.log("decoded", req.body)
   
   let token = req.headers["x-access-token"];
 
