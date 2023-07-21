@@ -2,10 +2,11 @@
 
 const Razorpay = require("razorpay");
 const { RAZORPAY_ID_KEY, RAZORPAY_SECRET_KEY } = process.env;
+// console.log(process.env.RAZORPAY_ID_KEY);
 
 const razorpayInstance = new Razorpay({
-  key_id: "rzp_test_U9mpcxwvAidgxM",
-  key_secret: "ADIeMeoX7oRXL2mmvpGRdtQQ",
+  key_id: RAZORPAY_ID_KEY,
+  key_secret: RAZORPAY_SECRET_KEY,
 });
 
 const createPayment = async (req, res) => {
@@ -25,7 +26,7 @@ const createPayment = async (req, res) => {
           msg: "Order Created",
           orderId: order.id,
           amount: amount,
-          keyId: 'rzp_test_U9mpcxwvAidgxM',
+          keyId: "rzp_test_U9mpcxwvAidgxM",
           description: req.body.description,
           contact: "6393970007",
           name: "Alpha singh",
@@ -42,7 +43,6 @@ const createPayment = async (req, res) => {
     console.log(error.message);
   }
 };
-
 
 module.exports = {
   createPayment,

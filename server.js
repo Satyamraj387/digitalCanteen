@@ -1,21 +1,21 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+/** @format */
+
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const PORT = process.env.PORT || 3001;
 // require('./config/nodeMailer');
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
 
-const db= require("./config/db");
-
+const db = require("./config/db");
 
 // const passportgoogle = require('./config/passport-google-oauth2-strategy');
 
-
-
-
-
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.json());
 
 const connectDB = async function () {
@@ -28,10 +28,8 @@ const connectDB = async function () {
 };
 connectDB();
 
-app.use('/', require('./routes/index.js'));
-
-
+app.use("/", require("./routes/index.js"));
 
 app.listen(PORT, () => {
   console.log(`app is running on PORT:${PORT}`);
-})
+});
