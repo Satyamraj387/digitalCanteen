@@ -23,7 +23,7 @@ module.exports.fetcher = async (req, res) => {
     const results = await db.query(`select * from orders where email=$1`, [
       req.body.email,
     ]);
-    // console.log(results);
+    console.log(results.rows);
     return res.json(200, {
       message: "your all orders are here",
       data: results.rows,
@@ -65,11 +65,19 @@ module.exports.insertOrder = async (req, res) => {
     userDetails=userDetails.rows[0]
     console.log(userDetails)
     order={id, items, prices, totalPrice, userDetails}
-    await sendMail(order)
-    return res.json(200, {
-      message: "Order has been saved",
-      success: true,
-    });
+    const mailer=await sendMail(order)
+    if(mailer){
+      return res.json(200, {
+        message: "Order has been saved and mail delivered",
+        success: true,
+      });
+    }else{
+      return res.json(200, {
+        message: "Order has been saved, mail can't be delivered",
+        success: true,
+      });
+    }
+    
   } catch (error) {
     console.log(error);
     return res.json(400, {

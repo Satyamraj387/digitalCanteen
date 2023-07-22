@@ -1,4 +1,4 @@
-const {fetcher,insertUser,validateUser,verifier,userFetcher}= require("../controllers/userController");
+const {fetcher,insertUser,validateUser,verifier,userFetcher,validateotp, resetPassword, changepass}= require("../controllers/userController");
 
 const { authJwt } = require("../middleware");
 
@@ -8,6 +8,9 @@ const router= express.Router();
 
 router.post('/verify',[authJwt.verifyToken],verifier);
 router.post('/signup',insertUser);
+router.post('/reset',resetPassword)
+router.post('/changepass',changepass)
+router.post('/validate',validateotp)
 router.post('/login', validateUser);
 router.post('/',[authJwt.verifyToken], userFetcher);
 
