@@ -105,7 +105,9 @@ module.exports.validateUser = async (req, res) => {
     ]);
     var user = results.rows[0];
     if (user.otp !== "") {
-      return res.status(400).json({ success: false, message: "jaa bhai jaa" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Your OTP verification is pending" });
     }
     console.log(user);
     // var userId = results.rows[0].id;
@@ -141,31 +143,39 @@ module.exports.validateUser = async (req, res) => {
 };
 
 module.exports.resetPassword = async (req, res) => {
-  const email = req.body.email;
-  console.log(req);
-  const otp = Math.floor(100000 + Math.random() * 900000);
-  console.log(otp);
-  await db.query(`update users1 set otp = $1 where email= $2`, [otp, email]);
-  // await sendOtp(email, otp);
-  res.status(200).send({
-    email: email,
-    message: "otp sent",
-    success: true,
-  });
+  try {
+    const email = req.body?.email;
+    console.log(req);
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    console.log(otp);
+    await db.query(`update users1 set otp = $1 where email= $2`, [otp, email]);
+    await sendOtp(email, otp);
+    res.status(200).send({
+      email: email,
+      message: "otp sent",
+      success: true,
+    });
+  } catch (error) {
+    return res.json(500, {
+      message: "Some error in sending OTP",
+      success: false,
+      error: error,
+    });
+  }
 };
 module.exports.validateotp = async (req, res) => {
   try {
     const { email, otp } = req.body;
     const otp1 = await db.query(`select otp from users1 where email=$1`, [
-      req.body.email,
+      req.body?.email,
     ]);
     const generatedOtp = otp1.rows[0].otp;
 
     if (generatedOtp && generatedOtp === otp) {
       await db.query(`update users1 set otp = $1 where email= $2`, ["", email]);
-      res.status(200).json({ success: true });
+      res.status(200).json({ success: true, message: "Verified successfully. You can login now" });
     } else {
-      res.status(404).json({ success: false });
+      res.status(404).json({ success: false, message:"Kindly fill correct OTP"});
     }
   } catch (error) {
     console.log("Error validating OTP:", error);
@@ -175,22 +185,27 @@ module.exports.validateotp = async (req, res) => {
 module.exports.changepass = async (req, res) => {
   try {
     const { email, otp } = req.body;
-    var password = bcrypt.hashSync(req.body.password, 8);
+    var password = bcrypt.hashSync(req.body?.password, 8);
 
     const otp1 = await db.query(`select otp from users1 where email=$1`, [
-      req.body.email,
+      req.body?.email,
     ]);
-    const generatedOtp = otp1.rows[0].otp;
-    console.log(req.body);
+    const generatedOtp = otp1?.rows[0]?.otp;
+    // console.log(req.body);
     if (generatedOtp && generatedOtp === otp) {
-      await db.query(`update users1 set otp = $1 , password = $2 where email= $3`, ["",password, email]);
-      res.status(200).json({ success: true });
+      await db.query(
+        `update users1 set otp = $1 , password = $2 where email= $3`,
+        ["", password, email]
+      );
+      res.status(200).json({
+        success: true,
+        message: "Successfully changed your password. You can login now",
+      });
     } else {
-      res.status(404).json({ success: false });
+      res.status(404).json({ success: false, message: "OTP Mismatch" });
     }
   } catch (error) {
     console.log("Error validating OTP:", error);
     res.status(500).json({ success: false, error: "Error validating OTP" });
   }
 };
-

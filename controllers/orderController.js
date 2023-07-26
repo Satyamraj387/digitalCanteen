@@ -3,21 +3,24 @@
 const db = require("../config/db");
 const { sendMail } = require("../config/nodeMailer");
 
-// module.exports.adminFetcher = async (req,res)=>{
-//     try {
-//         const results = await db.query('SELECT * FROM orders');
+module.exports.adminFetcher = async (req,res)=>{
+    try {
+      console.log("idhar bhi admin fetcher")
+        const results = await db.query('SELECT * FROM orders');
+        console.log(results.rows)
 
-//     return res.json(200, {
-//         message: 'Success',
-//         results: results
-//     });
-//     } catch (error) {
-//         return res.json(400, {
-//             message:error
-//         })
-//     }
+    return res.json(200, {
+        message: 'Success',
+        success: true,
+        data: results.rows
+    });
+    } catch (error) {
+        return res.json(400, {
+            message:error
+        })
+    }
 
-// }
+}
 module.exports.fetcher = async (req, res) => {
   try {
     const results = await db.query(`select * from orders where email=$1`, [

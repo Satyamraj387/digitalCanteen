@@ -12,7 +12,7 @@ const sendMail = async (data) => {
   });
 
   let mailDetails = {
-    from: "satgun041@gmail.com",
+    from: "Argus Canteen",
     to: data.userDetails.email,
     subject: "your order details",
     text: `Hi ${data.userDetails.name},

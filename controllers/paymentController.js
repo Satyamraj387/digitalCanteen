@@ -17,7 +17,6 @@ const createPayment = async (req, res) => {
       currency: "INR",
       receipt: "razorUser@gmail.com",
     };
-    // console.log('aaya hun')
 
     razorpayInstance.orders.create(options, (err, order) => {
       if (!err) {
@@ -26,11 +25,11 @@ const createPayment = async (req, res) => {
           msg: "Order Created",
           orderId: order.id,
           amount: amount,
-          keyId: "rzp_test_U9mpcxwvAidgxM",
+          keyId: process.env.RAZORPAY_ID_KEY,
           description: req.body.description,
           contact: "6393970007",
           name: "Alpha singh",
-          email: "sandeep@gmail.com",
+          email: "satyams@.com",
         });
       } else {
         return res.json(400, {
