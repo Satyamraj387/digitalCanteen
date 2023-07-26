@@ -8,7 +8,7 @@ var bcrypt = require("bcryptjs");
 
 module.exports.userFetcher = async (req, res) => {
   try {
-    console.log("params working egbekjbvkjrgregeg");
+    // console.log("params working egbekjbvkjrgregeg");
     const results = await db.query(`select * from users1 where email=$1`, [
       req.body.email,
     ]);
@@ -67,8 +67,8 @@ module.exports.insertUser = async (req, res) => {
     const results = await db.query(`select * from users1 where email=$1`, [
       req.body.email,
     ]);
-    console.log(req.body);
-    console.log(results.rows);
+    // console.log(req.body);
+    // console.log(results.rows);
 
     if (results?.rows[0]) {
       return res
@@ -99,7 +99,7 @@ module.exports.insertUser = async (req, res) => {
 
 module.exports.validateUser = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const results = await db.query(`select * from users1 where email=$1`, [
       req.body.email,
     ]);
@@ -109,7 +109,7 @@ module.exports.validateUser = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Your OTP verification is pending" });
     }
-    console.log(user);
+    // console.log(user);
     // var userId = results.rows[0].id;
     // return res.json(200, user.password);
     var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
@@ -145,9 +145,9 @@ module.exports.validateUser = async (req, res) => {
 module.exports.resetPassword = async (req, res) => {
   try {
     const email = req.body?.email;
-    console.log(req);
+    // console.log(req);
     const otp = Math.floor(100000 + Math.random() * 900000);
-    console.log(otp);
+    // console.log(otp);
     await db.query(`update users1 set otp = $1 where email= $2`, [otp, email]);
     await sendOtp(email, otp);
     res.status(200).send({

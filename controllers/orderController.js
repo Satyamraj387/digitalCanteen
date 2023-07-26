@@ -5,9 +5,9 @@ const { sendMail } = require("../config/nodeMailer");
 
 module.exports.adminFetcher = async (req,res)=>{
     try {
-      console.log("idhar bhi admin fetcher")
+      // console.log("idhar bhi admin fetcher")
         const results = await db.query('SELECT * FROM orders');
-        console.log(results.rows)
+        // console.log(results.rows)
 
     return res.json(200, {
         message: 'Success',
@@ -26,7 +26,7 @@ module.exports.fetcher = async (req, res) => {
     const results = await db.query(`select * from orders where email=$1`, [
       req.body.email,
     ]);
-    console.log(results.rows);
+    // console.log(results.rows);
     return res.json(200, {
       message: "your all orders are here",
       data: results.rows,
@@ -49,7 +49,9 @@ module.exports.insertOrder = async (req, res) => {
       items = {};
     cartItems.forEach((e) => {
       prices.push(e.price);
-      items[e.name] = e.quantity;
+      items[e.name] = [e.quantity,e.price];
+      // items[e.name].push = e.price;
+
     });
 
     let id = Date.now();
@@ -66,7 +68,7 @@ module.exports.insertOrder = async (req, res) => {
       email,
     ]);
     userDetails=userDetails.rows[0]
-    console.log(userDetails)
+    // console.log(userDetails)
     order={id, items, prices, totalPrice, userDetails}
     const mailer=await sendMail(order)
     if(mailer){

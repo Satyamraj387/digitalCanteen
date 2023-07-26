@@ -22,7 +22,7 @@ module.exports.fetcher = async (req, res) => {
 
 module.exports.updateItem = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
 
     await db.query(
       `UPDATE items SET "name"=$2, "description"=$3, "price"=$4, "availability"=$5 
@@ -51,7 +51,7 @@ module.exports.updateItem = async (req, res) => {
 
 module.exports.deleteItem = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
 
     await db.query(
       `DELETE FROM items where id=$1`,
@@ -76,7 +76,7 @@ module.exports.deleteItem = async (req, res) => {
 
 module.exports.insertItem = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
 
     await db.query(
       `INSERT INTO "items" ("id", "name", "description", "price", "availability")  
@@ -89,7 +89,7 @@ module.exports.insertItem = async (req, res) => {
         req.body.availability,
       ]
     ); // sends queries
-    console.log(req.body)
+    // console.log(req.body)
     return res.json(200, {
       message: "Successfully inserted item in menu",
       success: true,

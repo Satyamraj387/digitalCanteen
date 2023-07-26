@@ -22,7 +22,7 @@ verifyToken = (req, res, next) => {
                   message: "Unauthorized!",
                 });
               }
-              console.log(decoded)  //gives the id iat and exp
+              // console.log(decoded)  //gives the id iat and exp
               req.body.email = decoded.email;
 
               next();
