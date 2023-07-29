@@ -1,29 +1,35 @@
-const {fetcher,insertUser,validateUser,verifier,userFetcher,validateotp, resetPassword, changepass}= require("../controllers/userController");
+/** @format */
+
+const {
+  fetcher,
+  insertUser,
+  validateUser,
+  verifier,
+  userFetcher,
+  validateotp,
+  resetPassword,
+  changepass,
+  editName,
+} = require("../controllers/userController");
 
 const { authJwt } = require("../middleware");
 
-const express= require('express');
+const express = require("express");
 
-const router= express.Router();
+const router = express.Router();
 
-router.post('/verify',[authJwt.verifyToken],verifier);
-router.post('/signup',insertUser);
-router.post('/reset',resetPassword)
-router.post('/changepass',changepass)
-router.post('/validate',validateotp)
-router.post('/login', validateUser);
-router.post('/',[authJwt.verifyToken], userFetcher);
-
-
+router.post("/verify", [authJwt.verifyToken], verifier);
+router.post("/signup", insertUser);
+router.post("/reset", resetPassword);
+router.post("/changepass", changepass);
+router.post("/validate", validateotp);
+router.post("/login", validateUser);
+router.post("/edit", [authJwt.verifyToken], editName);
+router.post("/", [authJwt.verifyToken], userFetcher);
 
 module.exports = router;
 
-
 // //jkfhkfbdkb
-
-
-
-
 
 // module.exports = function(app) {
 //   app.use(function(req, res, next) {
@@ -46,11 +52,7 @@ module.exports = router;
 //   app.post("/api/auth/signin", controller.signin);
 // };
 
-
-
 // //fiodfeh
-
-
 
 // const { authJwt } = require("../controllers/middleware");
 // const controller = require("../controllers/user.controller");

@@ -13,6 +13,11 @@ module.exports.userFetcher = async (req, res) => {
       req.body.email,
     ]);
     var user = results.rows[0];
+    // user.filter((e)=>{
+    //   return (!(e=='password'))
+    // })
+    delete user.password;
+
     // console.log(user)
 
     return res.json(200, {
@@ -173,9 +178,14 @@ module.exports.validateotp = async (req, res) => {
 
     if (generatedOtp && generatedOtp === otp) {
       await db.query(`update users1 set otp = $1 where email= $2`, ["", email]);
-      res.status(200).json({ success: true, message: "Verified successfully. You can login now" });
+      res.status(200).json({
+        success: true,
+        message: "Verified successfully. You can login now",
+      });
     } else {
-      res.status(404).json({ success: false, message:"Kindly fill correct OTP"});
+      res
+        .status(404)
+        .json({ success: false, message: "Kindly fill correct OTP" });
     }
   } catch (error) {
     console.log("Error validating OTP:", error);
@@ -207,5 +217,28 @@ module.exports.changepass = async (req, res) => {
   } catch (error) {
     console.log("Error validating OTP:", error);
     res.status(500).json({ success: false, error: "Error validating OTP" });
+  }
+};
+
+module.exports.editName = async (req, res) => {
+  try {
+    const name = req.body?.name;
+    const email = req.body?.email;
+    console.log(req);
+    await db.query(`update users1 set name = $1 where email= $2`, [
+      name,
+      email,
+    ]);
+    res.status(200).send({
+      name: name,
+      message: "name changed successfully",
+      success: true,
+    });
+  } catch (error) {
+    return res.json(500, {
+      message: "Some error in editing name",
+      success: false,
+      error: error,
+    });
   }
 };
